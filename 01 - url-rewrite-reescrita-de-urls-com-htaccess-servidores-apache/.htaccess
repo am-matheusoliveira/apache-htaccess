@@ -1,0 +1,18 @@
+Options -Indexes
+
+RewriteEngine on
+
+RewriteRule ^wdev$ ./index.php [NC]
+
+RewriteRule google https://www.google.com [NC,R=302]
+# 
+RewriteRule ^painel/?$ ./index.php [NC]
+# 
+RewriteRule ^painel/([a-z0-9]+)/?$ ./admin.php?modulo=$1 [NC]
+
+# OBS: NÃO DEVE TER ESPAÇO EM BRANCO ENTRE AS FLAGS, EXEMPLO [NC, QSA] 
+RewriteRule ^painel/([a-z0-9]+)/([a-z0-9]+)/?$ ./admin.php?modulo=$1&acao=$2 [NC,QSA]
+# 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ ./route.php

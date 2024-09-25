@@ -1,0 +1,100 @@
+
+Manipulando pastas e arquivos no Linux
+
+Comandos:
+
+Comando: ls
+Descrição: Lista todos os arquivos(não ocultos) e pastas
+
+Comando: ls -a
+Descrição: Lista todos os arquivos(incluindo os ocultos) e pastas
+
+Comando: cd .
+Descrição: Continua na mesma pasta
+
+Comando: cd ..
+Descrição: Volta uma pasta
+
+Comando: cd nome-pasta
+Descrição: Entra na pasta nome-pasta
+
+Comando: clear
+Descrição: Limpa a tela
+
+Comando: mkdir nome-pasta
+Descrição: Cria uma nova pasta nome-pasta
+
+Comando: ls -la
+Descrição: Lista todos os arquivos(incluindo os ocultos) e pastas em formato de tabela
+
+Comando: ls -lah
+Descrição: Lista todos os arquivos(incluindo os ocultos) e pastas em formato de tabela e a vizualização do tamanho em formato humana
+
+Comando: touch nome-arquivo.txt
+Descrição: Realiza a criação de um novo arquivo vazio
+
+Comando: cat nome-arquivo.txt
+Descrição: Realiza a vizualização interna do conteúdo do arquivo
+
+Comando: ls -l > nome-arquivo.txt
+Descrição: Lista todos os arquivos(não ocultos) e pastas em formato de tabela e salva a saida dentro do nome-arquivo.txt
+
+Comando: ls -l >> nome-arquivo.txt
+Descrição: Lista todos os arquivos(não ocultos) e pastas em formato de tabela, incrementa e salva a saida dentro do nome-arquivo.txt
+
+Comando: date
+Descrição: Mostra a data e hora corrente
+
+Comando: date >> nome-arquivo.txt
+Descrição: Incrementa e salva a saida do comando dentro do nome-arquivo.txt
+
+Comando: unlink nome-arquivo.txt
+Descrição: Exclui o arquivo nome-arquivo.txt. OBS: Esse comando apenas exclui arquivos.
+
+Comando: rm -r nome-pasta ou nome-arquivo.txt
+Descrição: Com esse comando podemos excluir tanto pasta quanto arquivos, para arquivos não precisamos do '-r', somente para pastas 
+
+Comando: rm -ri nome-pasta ou nome-arquivo.txt
+Descrição: Com esse comando podemos excluir tanto pasta quanto arquivos, para arquivos não precisamos do '-r', somente para pastas,
+com esse 'i' o SO ira nos pedir uma confirmação. PT-BR:(S=SIM, N=NÂO), USA(Y=YES, N=NO)
+
+Comando: nano nome-arquivo.txt 
+Descrição: Esse comando realiza a abertura de um arquivo no editor do nano, um editor de texto muito usado no Linux,
+dentro deste editor, todos os comandos iniciam com a tecla 'ctrl'+'letra-comando' - praticar para aprender
+
+Comando: (ctrl + shift + v)
+Descrição: Usamos essas teclas pra colar um conteúdo dentro de um arquivo que esta aberto no editor de texto(nano e etc...)
+
+Comando: grep "texto a ser Buscando" nome-arquivo-que-contem-o-conteudo.txt
+Descrição: Comando grep e usado para realizar buscas dentro de arquivos de texto, inclusive ele colori os matches encontrados
+
+Comando: grep --color "texto a ser Buscando" nome-arquivo-que-contem-o-conteudo.txt
+Descrição: A flag '--color' e para o caso de ele não colorir de forma automatica
+
+Comando: grep "texto a ser Buscando" nome-arquivo-que-contem-o-conteudo.txt | grep --color "porta" 
+Descrição: Com o comando acima podemos refinar a nossa busca, pesquisando dentro do resultado anteriormente obtido
+
+Comando: grep "texto a ser Buscando" nome-arquivo-que-contem-o-conteudo.txt | grep "porta" | grep --color "novo-texto" 
+Descrição: Refinando ainda mais nossa busca
+
+Comando: grep "texto a ser Buscando" nome-arquivo-que-contem-o-conteudo.txt | grep "porta" | grep --color -i "novo-texto" 
+Descrição: Refinando ainda mais nossa busca, e incluindo a flag '-i' para ser 'case-insensitive'
+
+Comando: grep "texto a ser Buscando" nome-arquivo-que-contem-o-conteudo.txt | tail -1
+Descrição: Buscando e trazendo apenas o ultimo registro da busca
+
+Comando: mv contato.txt contatos.txt
+Descrição: Renomeando arquivos de texto
+
+Comando: mv contato contatos
+Descrição: Renomeando pastas, pastas não contem extensão
+
+Comando: mv pessoas.php codigos/pessoas.php
+Descrição: Movendo o arquivo 'pessoas.php' para dentro da pasta 'codigos'
+
+Comando: cp contatos.php contatos-02.php ou cp contatos.php pessoas/contatos.php
+Descrição: Realizando a copia de arquivos, e também copiando de uma pasta para outra
+
+Comando: cp -r nome-pasta nome-nova-pasta ou cp nome-pasta matheus/nome-pasta
+Descrição: Realizando a copia de uma pasta, e também copiando uma pasta para outra pasta. OBS: para copiar pastas precisamos da flag '-r'
+  

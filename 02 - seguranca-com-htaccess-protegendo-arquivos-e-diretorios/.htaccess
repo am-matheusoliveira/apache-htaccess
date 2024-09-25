@@ -1,0 +1,40 @@
+# BLOQUEAR A VISUALIZAÇÃO A ARQUIVOS INDEXADOS
+Options -Indexes
+
+# Basic Auth - acesso personalizado
+AuthType Basic
+AuthName "Acesso restrito Sistema"
+AuthUserFile "${INSTALL_DIR}\www\apache-htaccess\02 - seguranca-com-htaccess-protegendo-arquivos-e-diretorios\.htpasswd"
+Require valid-user
+
+# DIRETIVAS NO .htacces TEM A SEGUINTE NOTAÇÃO '<directive name>'
+# PROCURAR SEMPRE ESCREVER SEGUINDO ESTE PADRÃO
+<FilesMatch "\.env$"> # TUDO QUE VEM DENTRO DESTE "" E UMA EXPRESSÃO REGULAR
+     
+    # COM ISSO BLOQUEAMOS O ACESSO PARA QUALQUER UM AO ARQUIVO .env
+    Require all denied
+
+</FilesMatch>
+
+# BLOQUEAR ACESSO A ARQUIVOS DO TIPO JSON
+<FilesMatch "\.json$">
+
+    # Require ip 172.27.192.1
+    # Require ip 179.48.228.4
+    Require ip 127.0.0.1
+
+</FilesMatch>
+
+# LIMITAR OS METÓDOS HTTP
+<Limit POST PUT DELETE>
+    
+    Require all denied
+
+</Limit>
+
+RewriteEngine on
+
+RewriteCond %{QUERY_STRING} "script"
+# COM A FLAG [F] O ACESSO AQUELA URL SERA BLOQUEADO.
+# ISSO AQUI '.*' SIGUINIFICA: EM QUALQUER LUGAR QUE O USUÁRIO ESTIVER.
+RewriteRule .* - [F]
