@@ -1,18 +1,30 @@
+
+# Desativa a listagem de arquivos em diretórios sem index. - index.php, index.html.
+# Protege  o site contra exposição acidental de arquivos.
 Options -Indexes
 
+
+# Ativa o módulo de regras de reescrita do apache (mod_rewrite).
+# Sem isso, nada do que vem abaixo funciona.
 RewriteEngine on
 
+
+# Quando alguém acessa: seudominio.com/wdev O Apache REESCREVE para: ./index.php.
+# Serve para criar uma rota amigável chamada /wdev.
+# FLAGS:
+    # NC → NO CASE (Sem diferença entre maiúsculas e minúsculas), 
+    # QSA → QUERY STRING APPEND (Se já existirem parâmetros na URL, eles são mantidos).
+
+# OBS: Não deve ter espaço entre as FLAGS, exemplo -> [NC, QSA] correto [NC,QSA].
 RewriteRule ^wdev$ ./index.php [NC]
-
 RewriteRule google https://www.google.com [NC,R=302]
-# 
 RewriteRule ^painel/?$ ./index.php [NC]
-# 
 RewriteRule ^painel/([a-z0-9]+)/?$ ./admin.php?modulo=$1 [NC]
-
-# OBS: NÃO DEVE TER ESPAÇO EM BRANCO ENTRE AS FLAGS, EXEMPLO [NC, QSA] 
 RewriteRule ^painel/([a-z0-9]+)/([a-z0-9]+)/?$ ./admin.php?modulo=$1&acao=$2 [NC,QSA]
-# 
+
+
+# Condições para os casos em que um arquivo não exista (!-f) ou para um diretório (!-d)
+# Executa o RewriteRule após as condições caso tanto o arquivo quanto o diretório não exista.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./route.php
