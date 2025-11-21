@@ -1,2 +1,14 @@
 
+# Isso BLOQUEIA totalmente o acesso a: arquivos, diretórios, endpoints, qualquer coisa naquele path.
+# Se alguém tentar acessar o arquivo, o servidor retorna: 403 Forbidden.
+# OBS: O código do backend ainda pode acessar o conteúdo desta pasta.
 Require all denied
+
+# Todo mundo tanto o códio backend quando na web podem acessar o conteúdo do path.
+# Require all granted
+
+# Permitindo acesso ao path a um IP especifico.
+# Require ip 192.168.1.10
+
+# Bloqueando acesso ao path a um IP especifico.
+# Require not ip 200.200.200.1
