@@ -1,40 +1,58 @@
-# BLOQUEAR A VISUALIZAÇÃO A ARQUIVOS INDEXADOS
+
+# Desativa a listagem de arquivos em diretórios sem index. - index.php, index.html.
+# Protege  o site contra exposição acidental de arquivos.
 Options -Indexes
 
-# Basic Auth - acesso personalizado
+
+# Autenticação básica, acesso personalizado 
+
+# Usar autenticação HTTP básica (usuário e senha).
 AuthType Basic
+
+# Frase que aparece na caixinha de login do navegador.
 AuthName "Acesso restrito Sistema"
-AuthUserFile "${INSTALL_DIR}\www\apache-htaccess\02 - seguranca-com-htaccess-protegendo-arquivos-e-diretorios\.htpasswd"
+
+# Arquivo que contém usuários e senhas criptografadas.
+AuthUserFile "${INSTALL_DIR}\www\outros-pessoal\apache-htaccess\02 - seguranca-com-htaccess-protegendo-arquivos-e-diretorios\.htpasswd"
+
+# Qualquer usuário válido no .htpasswd pode entrar.
 Require valid-user
 
-# DIRETIVAS NO .htacces TEM A SEGUINTE NOTAÇÃO '<directive name>'
-# PROCURAR SEMPRE ESCREVER SEGUINDO ESTE PADRÃO
-<FilesMatch "\.env$"> # TUDO QUE VEM DENTRO DESTE "" E UMA EXPRESSÃO REGULAR
-     
-    # COM ISSO BLOQUEAMOS O ACESSO PARA QUALQUER UM AO ARQUIVO .env
-    Require all denied
 
+# Diretivas no .htacces tem a seguinte notação <nomeDiretiva "regexAqui">
+# Tudo apos o nome da diretiva dentro de "" e uma expressão regular.
+
+# Diretiva FilesMatch permite encontrar arquivos usando uma expressão regular.
+<FilesMatch "\.env$">     
+    # Bloqueia o acesso a qualquer usuário pela web ao arquivo .env
+    Require all denied
 </FilesMatch>
 
-# BLOQUEAR ACESSO A ARQUIVOS DO TIPO JSON
+
+# Bloqueia acesso a arquivos json.
 <FilesMatch "\.json$">
-
-    # Require ip 172.27.192.1
-    # Require ip 179.48.228.4
+    # Somente o IP local pode acessar arquivos .json
     Require ip 127.0.0.1
-
 </FilesMatch>
 
-# LIMITAR OS METÓDOS HTTP
-<Limit POST PUT DELETE>
-    
-    Require all denied
 
+# Diretiva Limit permite impor alguns limites de acesso, como nesse caso a métodos HTTP.
+<Limit POST PUT DELETE>
+    # Nega qualquer usuário que tentar enviar requisições HTTP do tipo POST PUT ou DELETE.
+    Require all denied
 </Limit>
 
+
+# Ativa o módulo de regras de reescrita do apache (mod_rewrite).
+# Sem isso, nada do que vem abaixo funciona.
 RewriteEngine on
 
+
+# Bloquear URLs com ataques "script".
+# Se alguém acessar algo assim: index.php?id=<script>alert(1)</script> ou /produto?acao=script
+# Detecta o termo script na query, a regra aplica [F] ou seja 403 Forbidden.
+# Isso evita ataques maliciosos, em outras palavra é um firewall simples dentro do Apache.
 RewriteCond %{QUERY_STRING} "script"
-# COM A FLAG [F] O ACESSO AQUELA URL SERA BLOQUEADO.
-# ISSO AQUI '.*' SIGUINIFICA: EM QUALQUER LUGAR QUE O USUÁRIO ESTIVER.
+
+# Regra abaixo, caso um usuário tente passar um 'script' na URL a requisição será barrada.
 RewriteRule .* - [F]
